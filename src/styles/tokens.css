@@ -38,3 +38,31 @@
   --ds-font-body-s-size: 12px;
   --ds-font-body-s-lh: 1.5;
 }
+
+/* --- Global Responsive Safety Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevents unwanted horizontal page scrolling */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ensure text headers wrap on small screens instead of pushing layout wide */
+h1, h2, h3, p {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
