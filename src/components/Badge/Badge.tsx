@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Badge.module.css';
 
 export type BadgeVariant = 'neutral' | 'positive' | 'negative';
 
@@ -15,9 +16,16 @@ export const Badge: React.FC<BadgeProps> = ({
   'aria-label': ariaLabel,
   className = '',
 }) => {
+  const variantClass =
+    variant === 'positive'
+      ? styles.positive
+      : variant === 'negative'
+      ? styles.negative
+      : styles.neutral;
+
   return (
     <span
-      className={`ds-badge ds-badge--${variant} ${className}`}
+      className={`${styles.badge} ${variantClass} ${className}`.trim()}
       aria-label={ariaLabel}
       role={ariaLabel ? 'img' : undefined}
     >

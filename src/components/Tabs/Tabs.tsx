@@ -7,7 +7,8 @@ import React, {
   KeyboardEvent,
   ReactNode,
 } from 'react';
-import { Badge, BadgeProps } from '../Badge'; // Import Badge component
+import { Badge, BadgeProps } from '../Badge';
+import styles from './Tabs.module.css';
 
 // --- Types ---
 export type TabVariant = 'pill' | 'underline';
@@ -74,6 +75,8 @@ export const Tabs: React.FC<TabsProps> & {
     }
   };
 
+  const variantClass = variant === 'underline' ? styles.underline : styles.pill;
+
   return (
     <TabsContext.Provider
       value={{
@@ -84,10 +87,7 @@ export const Tabs: React.FC<TabsProps> & {
         tabIds,
       }}
     >
-      <div
-        className={`ds-tabs-root ds-tabs--${variant} ${className}`}
-        data-variant={variant}
-      >
+      <div className={`${styles.tabsRoot} ${variantClass} ${className}`.trim()}>
         {children}
       </div>
     </TabsContext.Provider>
@@ -96,7 +96,7 @@ export const Tabs: React.FC<TabsProps> & {
 
 // --- Tabs.List Component ---
 export interface TabsListProps {
-  'aria-label': string; // WCAG 2.1 AA Compliance
+  'aria-label': string; // Required for WCAG 2.1 AA Compliance
   children: ReactNode;
   className?: string;
 }
@@ -155,7 +155,7 @@ const TabsList: React.FC<TabsListProps> = ({
       role="tablist"
       aria-label={ariaLabel}
       aria-orientation="horizontal"
-      className={`ds-tab-list ${className}`}
+      className={`${styles.tabList} ${className}`.trim()}
       onKeyDown={handleKeyDown}
     >
       {children}
@@ -203,10 +203,10 @@ const Tab: React.FC<TabProps> = ({
       tabIndex={isSelected ? 0 : -1}
       disabled={disabled}
       data-value={value}
-      className={`ds-tab ${isSelected ? 'ds-tab--selected' : ''} ${className}`}
+      className={`${styles.tab} ${isSelected ? styles.selected : ''} ${className}`.trim()}
       onClick={() => !disabled && setActiveValue(value)}
     >
-      <span className="ds-tab__label">{children}</span>
+      <span className={styles.label}>{children}</span>
       {badge && <Badge {...badge} />}
     </button>
   );
@@ -236,7 +236,7 @@ const TabPanel: React.FC<TabPanelProps> = ({
       id={ids?.panelId}
       aria-labelledby={ids?.tabId}
       tabIndex={0}
-      className={`ds-tab-panel ${className}`}
+      className={`${styles.tabPanel} ${className}`.trim()}
     >
       {children}
     </div>
