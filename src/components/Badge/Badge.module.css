@@ -1,0 +1,42 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-family: var(--ds-font-family);
+  font-size: var(--ds-font-body-s-size);
+  line-height: var(--ds-font-body-s-lh);
+  font-weight: 600;
+  white-space: nowrap;
+  box-sizing: border-box;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  /* Desktop Padding (Mobile: Off) -> 3XS vertical (4px), 2XS horizontal (8px) */
+  padding: var(--ds-space-3xs) var(--ds-space-2xs);
+}
+
+/* Variant Classes */
+.neutral {
+  background-color: var(--ds-color-badge-neutral-bg);
+  color: var(--ds-color-badge-neutral-text);
+}
+
+.positive {
+  background-color: var(--ds-color-badge-positive-bg);
+  color: var(--ds-color-badge-positive-text);
+}
+
+.negative {
+  background-color: var(--ds-color-badge-negative-bg);
+  color: var(--ds-color-badge-negative-text);
+}
+
+/* Mobile Breakpoint (Mobile: True <= 768px) */
+@media (max-width: 768px) {
+  .badge {
+    /* Mobile Padding -> 4XS vertical (2px), 3XS horizontal (4px) */
+    padding: var(--ds-space-4xs) var(--ds-space-3xs);
+  }
+}
