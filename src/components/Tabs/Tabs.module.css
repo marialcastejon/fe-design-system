@@ -1,0 +1,154 @@
+.tabsRoot {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tabList {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+  scrollbar-width: none;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabList::-webkit-scrollbar {
+  display: none;
+}
+
+/* Base Tab Interactive Button (Resets User-Agent Button Styles) */
+.tab {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ds-font-family);
+  color: var(--ds-color-text-default);
+  white-space: nowrap;
+  box-sizing: border-box;
+  transition: all 0.15s ease-in-out;
+
+  /* Accessible Focus Ring (WCAG 2.1 AA) */
+  &:focus-visible {
+    outline: 2px solid var(--ds-color-border-focus);
+    outline-offset: 2px;
+  }
+
+  &[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.label {
+  display: inline-block;
+}
+
+/* ----------------------------------------------------
+   VARIANT 1: PILL
+   ---------------------------------------------------- */
+.pill {
+  & .tabList {
+    gap: var(--ds-space-2xs); /* 8px gap between pills */
+    padding: 10px 5px;
+  }
+
+  & .tab {
+    height: 58px; /* Desktop height from Figma spec */
+    padding: 0 var(--ds-space-s); /* 16px horizontal padding */
+    border-radius: 9999px;
+    gap: var(--ds-space-2xs);
+    font-size: var(--ds-font-body-m-size);
+    line-height: var(--ds-font-body-m-lh);
+    font-weight: 500;
+    border: 1px solid var(--ds-color-bg-pill-border);
+
+    &:hover:not([disabled]):not(.selected) {
+      background-color: var(--ds-color-bg-pill-hover);
+    }
+
+    &.selected {
+      background-color: var(--ds-color-bg-pill-selected);
+      color: var(--ds-color-text-selected-pill);
+      font-weight: 600;
+    }
+  }
+}
+
+/* ----------------------------------------------------
+   VARIANT 2: UNDERLINE
+   ---------------------------------------------------- */
+.underline {
+  & .tabList {
+    gap: var(--ds-space-xl); /* 32px gap between underline tabs */
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  & .tab {
+    height: 58px; /* Desktop height from Figma spec */
+    padding: 0;
+    gap: var(--ds-space-2xs);
+    font-size: var(--ds-font-body-m-size);
+    line-height: var(--ds-font-body-m-lh);
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+
+    &:hover:not([disabled]):not(.selected) {
+      color: var(--ds-color-text-selected-underline);
+    }
+
+    &.selected {
+      color: var(--ds-color-text-selected-underline);
+      border-bottom-color: var(--ds-color-border-underline-selected);
+      font-weight: 600;
+    }
+  }
+}
+
+/* ----------------------------------------------------
+   ACCESSIBLE TAB PANEL
+   ---------------------------------------------------- */
+.tabPanel {
+  padding-top: var(--ds-space-m);
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-color-border-focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* ----------------------------------------------------
+   RESPONSIVE BREAKPOINT (Mobile <= 768px)
+   ---------------------------------------------------- */
+@media (max-width: 768px) {
+  .pill .tab {
+    height: 42px; /* Mobile height spec */
+    padding: 0 var(--ds-space-xs); /* 12px horizontal padding */
+    font-size: var(--ds-font-body-s-size);
+    gap: var(--ds-space-3xs);
+  }
+
+  .underline .tabList {
+    gap: var(--ds-space-l); /* 24px gap */
+  }
+
+  .underline .tab {
+    height: 42px; /* Mobile height spec */
+    font-size: var(--ds-font-body-s-size);
+    gap: var(--ds-space-3xs);
+  }
+}
