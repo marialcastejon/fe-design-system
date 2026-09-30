@@ -1,17 +1,19 @@
-import React, {
+// biome-ignore-all lint/a11y/noNoninteractiveTabindex: Content-only tabpanels need a keyboard focus stop.
+import type React from "react";
+import {
   createContext,
+  type KeyboardEvent,
+  type ReactNode,
   useContext,
-  useState,
-  useRef,
   useId,
-  KeyboardEvent,
-  ReactNode,
-} from 'react';
-import { Badge, BadgeProps } from '../Badge';
-import styles from './Tabs.module.css';
+  useRef,
+  useState,
+} from "react";
+import { Badge, type BadgeProps } from "../Badge";
+import styles from "./Tabs.module.css";
 
 // --- Types ---
-export type TabVariant = 'pill' | 'underline';
+export type TabVariant = "pill" | "underline";
 
 interface TabsContextType {
   activeValue: string;
@@ -26,7 +28,7 @@ const TabsContext = createContext<TabsContextType | null>(null);
 function useTabsContext() {
   const context = useContext(TabsContext);
   if (!context) {
-    throw new Error('Tabs compound components must be rendered within a <Tabs> parent.');
+    throw new Error("Tabs compound components must be rendered within a <Tabs> parent.");
   }
   return context;
 }
@@ -45,15 +47,8 @@ export const Tabs: React.FC<TabsProps> & {
   List: typeof TabsList;
   Tab: typeof Tab;
   Panel: typeof TabPanel;
-} = ({
-  defaultValue,
-  value,
-  onValueChange,
-  variant = 'pill',
-  children,
-  className = '',
-}) => {
-  const [internalValue, setInternalValue] = useState<string>(defaultValue || '');
+} = ({ defaultValue, value, onValueChange, variant = "pill", children, className = "" }) => {
+  const [internalValue, setInternalValue] = useState<string>(defaultValue || "");
   const isControlled = value !== undefined;
   const activeValue = isControlled ? value : internalValue;
 
@@ -75,7 +70,7 @@ export const Tabs: React.FC<TabsProps> & {
     }
   };
 
-  const variantClass = variant === 'underline' ? styles.underline : styles.pill;
+  const variantClass = variant === "underline" ? styles.underline : styles.pill;
 
   return (
     <TabsContext.Provider
@@ -87,24 +82,22 @@ export const Tabs: React.FC<TabsProps> & {
         tabIds,
       }}
     >
-      <div className={`${styles.tabsRoot} ${variantClass} ${className}`.trim()}>
-        {children}
-      </div>
+      <div className={`${styles.tabsRoot} ${variantClass} ${className}`.trim()}>{children}</div>
     </TabsContext.Provider>
   );
 };
 
 // --- Tabs.List Component ---
 export interface TabsListProps {
-  'aria-label': string; // Required for WCAG 2.1 AA Compliance
+  "aria-label": string; // Required for WCAG 2.1 AA Compliance
   children: ReactNode;
   className?: string;
 }
 
 const TabsList: React.FC<TabsListProps> = ({
-  'aria-label': ariaLabel,
+  "aria-label": ariaLabel,
   children,
-  className = '',
+  className = "",
 }) => {
   const { setActiveValue } = useTabsContext();
   const listRef = useRef<HTMLDivElement>(null);
@@ -113,7 +106,7 @@ const TabsList: React.FC<TabsListProps> = ({
     if (!listRef.current) return;
 
     const tabs = Array.from(
-      listRef.current.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])')
+      listRef.current.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])'),
     );
     if (tabs.length === 0) return;
 
@@ -123,16 +116,16 @@ const TabsList: React.FC<TabsListProps> = ({
     let nextIndex = currentIndex;
 
     switch (event.key) {
-      case 'ArrowRight':
+      case "ArrowRight":
         nextIndex = (currentIndex + 1) % tabs.length;
         break;
-      case 'ArrowLeft':
+      case "ArrowLeft":
         nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
         break;
-      case 'Home':
+      case "Home":
         nextIndex = 0;
         break;
-      case 'End':
+      case "End":
         nextIndex = tabs.length - 1;
         break;
       default:
@@ -143,7 +136,7 @@ const TabsList: React.FC<TabsListProps> = ({
     const targetTab = tabs[nextIndex];
     targetTab.focus();
 
-    const targetValue = targetTab.getAttribute('data-value');
+    const targetValue = targetTab.getAttribute("data-value");
     if (targetValue) {
       setActiveValue(targetValue);
     }
@@ -172,13 +165,7 @@ export interface TabProps {
   className?: string;
 }
 
-const Tab: React.FC<TabProps> = ({
-  value,
-  badge,
-  disabled = false,
-  children,
-  className = '',
-}) => {
+const Tab: React.FC<TabProps> = ({ value, badge, disabled = false, children, className = "" }) => {
   const { activeValue, setActiveValue, registerTab, tabIds } = useTabsContext();
   const generatedId = useId();
 
@@ -203,7 +190,7 @@ const Tab: React.FC<TabProps> = ({
       tabIndex={isSelected ? 0 : -1}
       disabled={disabled}
       data-value={value}
-      className={`${styles.tab} ${isSelected ? styles.selected : ''} ${className}`.trim()}
+      className={`${styles.tab} ${isSelected ? styles.selected : ""} ${className}`.trim()}
       onClick={() => !disabled && setActiveValue(value)}
     >
       <span className={styles.label}>{children}</span>
@@ -219,11 +206,7 @@ export interface TabPanelProps {
   className?: string;
 }
 
-const TabPanel: React.FC<TabPanelProps> = ({
-  value,
-  children,
-  className = '',
-}) => {
+const TabPanel: React.FC<TabPanelProps> = ({ value, children, className = "" }) => {
   const { activeValue, tabIds } = useTabsContext();
   const isSelected = activeValue === value;
   const ids = tabIds.current.get(value);

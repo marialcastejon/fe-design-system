@@ -32,7 +32,7 @@
   --ds-color-badge-negative-text: #b42318;
 
   /* --- Typography Tokens --- */
-  --ds-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --ds-font-family: "Inter", system-ui, -apple-system, sans-serif;
   --ds-font-body-m-size: 14px;
   --ds-font-body-m-lh: 1.5;
   --ds-font-body-s-size: 12px;
@@ -62,7 +62,10 @@ body {
 }
 
 /* Ensure text headers wrap on small screens instead of pushing layout wide */
-h1, h2, h3, p {
+h1,
+h2,
+h3,
+p {
   overflow-wrap: break-word;
   word-break: break-word;
 }

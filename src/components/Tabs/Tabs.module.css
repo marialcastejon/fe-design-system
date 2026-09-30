@@ -11,13 +11,9 @@
   box-sizing: border-box;
   overflow-x: auto;
   scrollbar-width: none;
-
-  /* Horizontal scrolling within tab bar only */
-  overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
 
 .tabList::-webkit-scrollbar {

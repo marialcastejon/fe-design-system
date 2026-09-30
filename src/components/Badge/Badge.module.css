@@ -9,7 +9,9 @@
   font-weight: 600;
   white-space: nowrap;
   box-sizing: border-box;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 
   /* Desktop Padding (Mobile: Off) -> 3XS vertical (4px), 2XS horizontal (8px) */
   padding: var(--ds-space-3xs) var(--ds-space-2xs);

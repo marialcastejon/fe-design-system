@@ -16,6 +16,7 @@
   "scripts": {
     "build-storybook": "storybook build",
     "dev": "vite",
+    "lint": "biome check . --no-errors-on-unmatched",
     "check": "biome check . --no-errors-on-unmatched",
     "check:fix": "biome check . --write",
     "storybook": "storybook dev -p 6006",

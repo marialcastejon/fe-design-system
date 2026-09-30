@@ -42,6 +42,7 @@ Tokens are defined in `src/styles/tokens.css` using CSS Custom Properties, mappi
 
 ## 📁 Project Structure
 
+```
 src/
 ├── components/
 │   ├── Badge/
@@ -59,6 +60,7 @@ src/
 ├── setupTests.ts
 ├── index.ts              # Public API Barrel Export
 └── App.tsx               # Interactive Demo Playground
+```
 
 ---
 

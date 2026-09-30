@@ -1,35 +1,35 @@
-import React from 'react';
-import styles from './Badge.module.css';
+import type React from "react";
+import styles from "./Badge.module.css";
 
-export type BadgeVariant = 'neutral' | 'positive' | 'negative';
+export type BadgeVariant = "neutral" | "positive" | "negative";
 
 export interface BadgeProps {
   label: string | number;
   variant?: BadgeVariant;
-  'aria-label'?: string;
+  "aria-label"?: string;
   className?: string;
 }
 
 export const Badge: React.FC<BadgeProps> = ({
   label,
-  variant = 'neutral',
-  'aria-label': ariaLabel,
-  className = '',
+  variant = "neutral",
+  "aria-label": ariaLabel,
+  className = "",
 }) => {
   const variantClass =
-    variant === 'positive'
+    variant === "positive"
       ? styles.positive
-      : variant === 'negative'
-      ? styles.negative
-      : styles.neutral;
+      : variant === "negative"
+        ? styles.negative
+        : styles.neutral;
 
-  return (
-    <span
-      className={`${styles.badge} ${variantClass} ${className}`.trim()}
-      aria-label={ariaLabel}
-      role={ariaLabel ? 'img' : undefined}
-    >
+  const badgeClassName = `${styles.badge} ${variantClass} ${className}`.trim();
+
+  return ariaLabel ? (
+    <span className={badgeClassName} aria-label={ariaLabel} role="img">
       {label}
     </span>
+  ) : (
+    <span className={badgeClassName}>{label}</span>
   );
 };
